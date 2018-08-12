@@ -9,17 +9,22 @@ import { setText } from "../../redux/draft";
 
 const bem = makeBem("DraftEditor");
 
-const DraftEditor = ({ text, setText }) => {
+const DraftEditor = ({ text, setText, disabled }) => {
   return (
     <div className={classnames(bem())}>
-      <textarea value={text} onChange={e => setText(e.target.value)} />
+      <textarea
+        disabled={disabled}
+        value={text}
+        onChange={e => setText(e.target.value)}
+      />
     </div>
   );
 };
 
 DraftEditor.propTypes = {
   text: PropTypes.string.isRequired,
-  setText: PropTypes.func.isRequired
+  setText: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 DraftEditor.defaultProps = {};
@@ -31,8 +36,9 @@ export const DraftEditorStateful = withState("text", "setText", "")(
 );
 
 export const DraftEditorConnected = connect(
-  ({ draft }) => ({
-    text: draft.text
+  ({ draft, preview }) => ({
+    text: draft.text,
+    disabled: preview.open,
   }),
   { setText }
 )(DraftEditor);

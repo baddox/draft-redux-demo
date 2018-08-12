@@ -4,7 +4,7 @@ import classnames from "classnames";
 import makeBem from "../../utils/makeBem";
 import TopBar from "../TopBar/TopBar";
 import { DraftEditorConnected } from "../DraftEditor/DraftEditor";
-import { PublishStateful } from "../Publish/Publish";
+import { PublishStateful, PublishConnected } from "../Publish/Publish";
 // import "./HomePage.scss";
 
 const bem = makeBem("HomePage");
@@ -14,7 +14,7 @@ const HomePage = () => {
     <div className={classnames(bem())}>
       <TopBar />
       <DraftEditorConnected />
-      <PublishStateful />
+      <PublishConnected />
     </div>
   );
 };

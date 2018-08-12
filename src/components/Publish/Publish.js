@@ -3,6 +3,8 @@ import { PropTypes } from "prop-types";
 import classnames from "classnames";
 import makeBem from "../../utils/makeBem";
 import { withState } from "recompose";
+import { connect } from "react-redux";
+import { setOpen } from "../../redux/preview";
 // import "./Publish.scss";
 
 const bem = makeBem("Publish");
@@ -33,16 +35,18 @@ Publish.propTypes = {
   previewing: PropTypes.bool.isRequired,
   setPreviewing: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
-  publish: PropTypes.func.isRequired
+  publish: PropTypes.func.isRequired,
 };
 
-Publish.defaultProps = {
-  text: "default text",
-  publish: text => console.log("Published:", text)
-};
+Publish.defaultProps = {};
 
 export default Publish;
 
 export const PublishStateful = withState("previewing", "setPreviewing", false)(
   Publish
 );
+
+export const PublishConnected = connect(
+  ({ preview }) => ({ previewing: preview.open, text: preview.text }),
+  { setPreviewing: setOpen }
+)(Publish);

@@ -1,6 +1,6 @@
 const initialState = {
   saved: true,
-  text: "initial text"
+  text: "",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
