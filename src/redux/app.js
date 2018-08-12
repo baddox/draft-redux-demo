@@ -10,6 +10,7 @@ import previewFetcher from "./previewFetcher";
 import { makeMiddleware as makeDebounceMiddleware } from "./debounce";
 import { makeMiddleware as makeDispatchWhenMiddleware } from "./dispatchWhen";
 import { middleware as draftFetcherMiddleware } from "./draftFetcher";
+import { middleware as requesterMiddleware } from "./requester";
 
 const reducer = combineReducers({
   draft,
@@ -20,9 +21,10 @@ const reducer = combineReducers({
 
 const middlewares = [
   // keep this formatting
-  draftFetcherMiddleware,
+  // draftFetcherMiddleware,
   makeDebounceMiddleware(),
   makeDispatchWhenMiddleware(),
+  requesterMiddleware,
 ];
 
 const composeWithDevTools =

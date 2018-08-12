@@ -4,18 +4,22 @@ import classnames from "classnames";
 import makeBem from "../../utils/makeBem";
 import { withState } from "recompose";
 import { connect } from "react-redux";
-import { setText } from "../../redux/draft";
+import { setText, saveDraft } from "../../redux/draft";
 // import "./DraftEditor.scss";
 
 const bem = makeBem("DraftEditor");
 
-const DraftEditor = ({ text, setText, disabled }) => {
+const DraftEditor = ({ text, setText, disabled, saveDraft }) => {
   return (
     <div className={classnames(bem())}>
       <textarea
         disabled={disabled}
         value={text}
-        onChange={e => setText(e.target.value)}
+        onChange={e => {
+          const t = e.target.value;
+          setText(t);
+          saveDraft(t);
+        }}
       />
     </div>
   );
@@ -24,6 +28,7 @@ const DraftEditor = ({ text, setText, disabled }) => {
 DraftEditor.propTypes = {
   text: PropTypes.string.isRequired,
   setText: PropTypes.func.isRequired,
+  saveDraft: PropTypes.func.isRequired,
   disabled: PropTypes.bool.isRequired,
 };
 
@@ -40,5 +45,5 @@ export const DraftEditorConnected = connect(
     text: draft.text,
     disabled: preview.open,
   }),
-  { setText }
+  { setText, saveDraft }
 )(DraftEditor);

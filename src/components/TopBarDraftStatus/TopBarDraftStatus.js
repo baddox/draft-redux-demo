@@ -7,22 +7,30 @@ import { connect } from "react-redux";
 
 const bem = makeBem("TopBarDraftStatus");
 
-const TopBarDraftStatus = ({ saved }) => {
+const TopBarDraftStatus = ({ saved, status }) => {
   return (
     <div className={classnames(bem())}>
-      {saved ? <div>saved</div> : <div>saving...</div>}
+      {saved ? (
+        <div style={{ color: "green" }}>saved</div>
+      ) : status === "requesting" ? (
+        <div style={{ color: "goldenrod" }}>saving...</div>
+      ) : (
+        <div style={{ color: "red" }}>unsaved</div>
+      )}
     </div>
   );
 };
 
 TopBarDraftStatus.propTypes = {
-  draftStatus: PropTypes.string.isRequired
+  saved: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
-TopBarDraftStatus.defaultProps = { draftStatus: "saving" };
+TopBarDraftStatus.defaultProps = {};
 
 export default TopBarDraftStatus;
 
 export const TopBarDraftStatusConnected = connect(({ draft }) => ({
-  saved: draft.saved
+  saved: draft.saved,
+  status: draft.draftSave.status,
 }))(TopBarDraftStatus);

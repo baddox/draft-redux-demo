@@ -28,7 +28,6 @@ export const makeMiddleware = () => _store => next => {
   return action => {
     const ms = get(action, ["meta", KEY, "ms"], 0);
     if (ms > 0) {
-      console.log("debouncing", ms, "ms");
       const debouncedNext = getDebouncedNext(action, ms);
       debouncedNext(action);
     } else {
