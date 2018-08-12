@@ -62,7 +62,7 @@ export const makeRequester = name => {
   const error = error => ({ type: ERROR, payload: { error } });
 
   // The main user-facing API to make a request.
-  const request = (url, { method = "get", body }) => {
+  const request = (url, { method = "get", body } = {}) => {
     const meta = {
       [KEY]: {
         url,

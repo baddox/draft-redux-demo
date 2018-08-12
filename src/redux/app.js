@@ -8,6 +8,7 @@ import preview from "./preview";
 import { makeMiddleware as makeDebounceMiddleware } from "./debounce";
 import { makeMiddleware as makeDispatchWhenMiddleware } from "./dispatchWhen";
 import { middleware as requesterMiddleware } from "./requester";
+import { middleware as previewMiddleware } from "./preview";
 
 const reducer = combineReducers({
   draft,
@@ -15,9 +16,13 @@ const reducer = combineReducers({
 });
 
 const middlewares = [
+  // These need to come first:
   makeDebounceMiddleware(),
   makeDispatchWhenMiddleware(),
   requesterMiddleware,
+
+  // App middlewares:
+  previewMiddleware,
 ];
 
 const composeWithDevTools =

@@ -1,8 +1,10 @@
 import { dispatchWhen } from "../dispatchWhen";
+import { withRequesters, makeRequester } from "../requester";
+
+export const SET_OPEN = "[preview] SET_OPEN";
 
 const initialState = {
   open: false,
-  text: "default preview text",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -14,12 +16,19 @@ const reducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default reducer;
+const preview = makeRequester("preview.text");
 
-export const SET_OPEN = "[preview] SET_OPEN";
+export default withRequesters({ preview }, reducer);
 
-export const setOpen = open =>
-  dispatchWhen(
-    { type: SET_OPEN, payload: { open } },
-    ({ draft }) => draft.text.length >= 5
-  );
+export const setOpen = open => ({ type: SET_OPEN, payload: { open } });
+
+export const middleware = store => next => action => {
+  next(action);
+  if (action.type === SET_OPEN && action.payload.open) {
+    const getPreviewWhenDraftIsSaved = dispatchWhen(
+      preview.request("draft"),
+      ({ draft }) => draft.saved
+    );
+    store.dispatch(getPreviewWhenDraftIsSaved);
+  }
+};
