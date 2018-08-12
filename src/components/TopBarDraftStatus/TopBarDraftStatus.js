@@ -2,14 +2,15 @@ import React from "react";
 import { PropTypes } from "prop-types";
 import classnames from "classnames";
 import makeBem from "../../utils/makeBem";
+import { connect } from "react-redux";
 // import "./TopBarDraftStatus.scss";
 
 const bem = makeBem("TopBarDraftStatus");
 
-const TopBarDraftStatus = ({ draftStatus }) => {
+const TopBarDraftStatus = ({ saved }) => {
   return (
     <div className={classnames(bem())}>
-      {draftStatus === "saving" ? <div>saving...</div> : <div>saved</div>}
+      {saved ? <div>saved</div> : <div>saving...</div>}
     </div>
   );
 };
@@ -21,3 +22,7 @@ TopBarDraftStatus.propTypes = {
 TopBarDraftStatus.defaultProps = { draftStatus: "saving" };
 
 export default TopBarDraftStatus;
+
+export const TopBarDraftStatusConnected = connect(({ draft }) => ({
+  saved: draft.saved
+}))(TopBarDraftStatus);
