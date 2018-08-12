@@ -1,4 +1,4 @@
-const DELAY = 1000;
+const DELAY = 1500;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
