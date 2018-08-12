@@ -32,5 +32,5 @@ export default TopBarDraftStatus;
 
 export const TopBarDraftStatusConnected = connect(({ draft }) => ({
   saved: draft.saved,
-  status: draft.draftSave.status,
+  status: draft.savedDraft.status,
 }))(TopBarDraftStatus);

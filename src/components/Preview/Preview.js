@@ -9,7 +9,7 @@ import { setOpen } from "../../redux/preview";
 
 const bem = makeBem("Preview");
 
-const Preview = ({ open, setOpen, preview, draftSave }) => {
+const Preview = ({ open, setOpen, preview, savedDraft }) => {
   return (
     <div className={classnames(bem())}>
       <div>
@@ -17,7 +17,7 @@ const Preview = ({ open, setOpen, preview, draftSave }) => {
         {open && (
           <div>
             <div>Preview:</div>
-            {draftSave.status === "requesting" ? (
+            {savedDraft.status === "requesting" ? (
               <div>saving draft...</div>
             ) : preview.status === "requesting" ? (
               <div>loading preview...</div>
@@ -40,7 +40,7 @@ Preview.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
   preview: PropTypes.object.isRequired,
-  draftSave: PropTypes.object.isRequired,
+  savedDraft: PropTypes.object.isRequired,
 };
 
 Preview.defaultProps = {};
@@ -53,7 +53,7 @@ export const PreviewConnected = connect(
   ({ preview, draft }) => ({
     open: preview.open,
     preview: preview.preview,
-    draftSave: draft.draftSave,
+    savedDraft: draft.savedDraft,
   }),
   { setOpen }
 )(Preview);
