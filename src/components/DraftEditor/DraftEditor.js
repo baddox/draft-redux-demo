@@ -14,6 +14,7 @@ const DraftEditor = ({ text, setText, disabled, saveDraft }) => {
     <div className={classnames(bem())}>
       <textarea
         disabled={disabled}
+        style={{ backgroundColor: disabled ? "#eee" : "transparent" }}
         value={text}
         onChange={e => {
           const t = e.target.value;
