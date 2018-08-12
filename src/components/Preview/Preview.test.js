@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Publish from "./Publish";
+import Preview from "./Preview";
 
-describe("Publish", () => {
+describe("Preview", () => {
   xit("renders correctly", () => {
     const props = { exampleProp: true };
-    const component = renderer.create(<Publish {...props} />);
+    const component = renderer.create(<Preview {...props} />);
     expect(component.toJSON()).toMatchSnapshot();
   });
 });
