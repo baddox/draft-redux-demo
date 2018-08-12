@@ -1,25 +1,19 @@
-import React from 'react';
-import { PropTypes } from 'prop-types';
-import classnames from 'classnames';
-import makeBem from '@utils/makeBem';
-import './ComponentTemplate.scss';
+import React from "react";
+import { PropTypes } from "prop-types";
+import classnames from "classnames";
+import makeBem from "../../utils/makeBem";
+// import "./ComponentTemplate.scss";
 
-const bem = makeBem('ComponentTemplate');
+const bem = makeBem("ComponentTemplate");
 
-const ComponentTemplate = ({ children, ...rest }) => {
-  return (
-    <div className={classnames(bem())} {...rest}>
-      {children}
-    </div>
-  );
+const ComponentTemplate = ({ children }) => {
+  return <div className={classnames(bem())}>{children}</div>;
 };
 
 ComponentTemplate.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
-ComponentTemplate.defaultProps = {
-  exampleProp: false,
-};
+ComponentTemplate.defaultProps = {};
 
 export default ComponentTemplate;
